@@ -7,64 +7,71 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-200 to-purple-300 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-lg px-8 py-10 max-w-lg w-full">
+  <div class="bg-white shadow-lg rounded-lg px-8 py-10 max-w-2xl w-full">
     <h1 class="text-3xl font-extrabold mb-6 text-center text-purple-700">Тест на Лудоманію</h1>
     
     <!-- Test Form -->
-    <form id="ludomaniaForm" class="space-y-6">
-      <!-- Question Template -->
-      <div>
-        <label class="block text-gray-800 font-semibold mb-2">1. Чи часто ви думаєте про азартні ігри?</label>
-        <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="question1">
-          <option value="">Оберіть відповідь</option>
-          <option value="3">Завжди</option>
-          <option value="2">Часто</option>
-          <option value="1">Рідко</option>
-          <option value="0">Ніколи</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-gray-800 font-semibold mb-2">2. Чи витрачаєте ви більше грошей, ніж планували?</label>
-        <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="question2">
-          <option value="">Оберіть відповідь</option>
-          <option value="3">Завжди</option>
-          <option value="2">Часто</option>
-          <option value="1">Рідко</option>
-          <option value="0">Ніколи</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-gray-800 font-semibold mb-2">3. Чи відчуваєте ви потребу грати частіше?</label>
-        <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="question3">
-          <option value="">Оберіть відповідь</option>
-          <option value="3">Завжди</option>
-          <option value="2">Часто</option>
-          <option value="1">Рідко</option>
-          <option value="0">Ніколи</option>
-        </select>
-      </div>
-      <!-- ...Additional questions would follow the same structure -->
-
-      <!-- Submit Button -->
-      <div class="text-center mt-4">
-        <button type="button" onclick="submitForm()" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded">
-          Підтвердити відповіді
-        </button>
-      </div>
-    </form>
+    <form id="ludomaniaForm" class="space-y-6"></form>
+    
+    <!-- Submit Button -->
+    <div class="text-center mt-4">
+      <button type="button" onclick="submitForm()" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded">
+        Підтвердити відповіді
+      </button>
+    </div>
     
     <!-- Result Display -->
     <div id="result" class="mt-6 text-center text-gray-800 font-semibold"></div>
   </div>
 
   <script>
+    // Масив з 20 питань
+    const questions = [
+      "Чи часто ви думаєте про азартні ігри?",
+      "Чи витрачаєте ви більше грошей, ніж планували?",
+      "Чи відчуваєте ви потребу грати частіше?",
+      "Чи намагалися ви зупинитися, але не змогли?",
+      "Чи відчуваєте ви тривогу, коли не можете грати?",
+      "Чи використовували азартні ігри як спосіб втекти від проблем?",
+      "Чи брехали ви про своє захоплення азартними іграми?",
+      "Чи ризикуєте ви стосунками через азартні ігри?",
+      "Чи використовуєте ви кредити для азартних ігор?",
+      "Чи сподіваєтеся повернути програні гроші наступного разу?",
+      "Чи граєте ви частіше, ніж обговорюєте це з друзями?",
+      "Чи намагаєтесь обмежити свої витрати на азартні ігри?",
+      "Чи вважаєте ви азартні ігри проблемою у вашому житті?",
+      "Чи позичали ви гроші для азартних ігор?",
+      "Чи відчуваєте себе погано через азартні ігри?",
+      "Чи намагалися приховати свої азартні витрати?",
+      "Чи відмовляєтесь від інших планів заради гри?",
+      "Чи використовуєте азартні ігри як засіб розслаблення?",
+      "Чи обговорюєте ви свої ігрові звички з близькими?",
+      "Чи відчуваєте почуття вини після азартних ігор?"
+    ];
+
+    // Генерація питань у HTML
+    const form = document.getElementById('ludomaniaForm');
+    questions.forEach((question, index) => {
+      const questionDiv = document.createElement('div');
+      questionDiv.innerHTML = `
+        <label class="block text-gray-800 font-semibold mb-2">${index + 1}. ${question}</label>
+        <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="question${index + 1}">
+          <option value="">Оберіть відповідь</option>
+          <option value="3">Завжди</option>
+          <option value="2">Часто</option>
+          <option value="1">Рідко</option>
+          <option value="0">Ніколи</option>
+        </select>
+      `;
+      form.appendChild(questionDiv);
+    });
+
     function submitForm() {
-      const form = document.getElementById('ludomaniaForm');
       const responses = [];
       let score = 0;
-      const questions = form.querySelectorAll('select');
+      const selects = form.querySelectorAll('select');
 
-      questions.forEach((select) => {
+      selects.forEach((select) => {
         const value = parseInt(select.value);
         if (!isNaN(value)) {
           responses.push(value);
@@ -74,11 +81,11 @@
         }
       });
 
-      // Analysis based on score
+      // Аналіз результатів на основі набраних балів
       let analysis = '';
-      if (score >= 20) {
+      if (score >= 40) {
         analysis = "Серйозна залежність. Варто звернутися до фахівця.";
-      } else if (score >= 10) {
+      } else if (score >= 20) {
         analysis = "Можлива залежність. Рекомендується обмежити участь у азартних іграх.";
       } else {
         analysis = "Низький рівень ризику залежності.";
