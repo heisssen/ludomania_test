@@ -5,123 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тест на Лудоманію</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Додаткові стилі для покращення UX */
-    .question-container {
-      transition: transform 0.2s ease-in-out;
-    }
-    .question-container:hover {
-      transform: scale(1.02);
-    }
-    .custom-select {
-      background-color: #f3f4f6;
-      border: 2px solid #d1d5db;
-    }
-    .custom-select:hover, .custom-select:focus {
-      border-color: #4f46e5;
-      outline: none;
-    }
-    .btn-submit {
-      background-color: #6366f1;
-      transition: background-color 0.2s;
-    }
-    .btn-submit:hover {
-      background-color: #4338ca;
-    }
-  </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-200 flex items-center justify-center min-h-screen">
   <div class="bg-white shadow-xl rounded-lg px-10 py-12 max-w-3xl w-full">
     <h1 class="text-4xl font-extrabold mb-8 text-center text-purple-700">Тест на Лудоманію</h1>
     
-    <!-- Test Form -->
-    <form id="ludomaniaForm" class="space-y-8">
-      <!-- Питання генеруються з масиву -->
-    </form>
-    
-    <!-- Submit Button -->
+    <!-- Форма для тесту -->
+    <form id="ludomaniaForm" class="space-y-8"></form>
+
+    <!-- Кнопка для підтвердження відповідей -->
     <div class="text-center mt-6">
       <button type="button" onclick="submitForm()" class="btn-submit text-white font-bold py-3 px-8 rounded-lg shadow-md">
         Підтвердити відповіді
       </button>
     </div>
-    
-    <!-- Result Display -->
+
+    <!-- Відображення результатів -->
     <div id="result" class="mt-8 text-center text-gray-800 font-semibold"></div>
   </div>
-
-  <script>
-    // Масив з 20 питань
-    const questions = [
-      "Чи часто ви думаєте про азартні ігри?",
-      "Чи витрачаєте ви більше грошей, ніж планували?",
-      "Чи відчуваєте ви потребу грати частіше?",
-      "Чи намагалися ви зупинитися, але не змогли?",
-      "Чи відчуваєте ви тривогу, коли не можете грати?",
-      "Чи використовували азартні ігри як спосіб втекти від проблем?",
-      "Чи брехали ви про своє захоплення азартними іграми?",
-      "Чи ризикуєте ви стосунками через азартні ігри?",
-      "Чи використовуєте ви кредити для азартних ігор?",
-      "Чи сподіваєтеся повернути програні гроші наступного разу?",
-      "Чи граєте ви частіше, ніж обговорюєте це з друзями?",
-      "Чи намагаєтесь обмежити свої витрати на азартні ігри?",
-      "Чи вважаєте ви азартні ігри проблемою у вашому житті?",
-      "Чи позичали ви гроші для азартних ігор?",
-      "Чи відчуваєте себе погано через азартні ігри?",
-      "Чи намагалися приховати свої азартні витрати?",
-      "Чи відмовляєтесь від інших планів заради гри?",
-      "Чи використовуєте азартні ігри як засіб розслаблення?",
-      "Чи обговорюєте ви свої ігрові звички з близькими?",
-      "Чи відчуваєте почуття вини після азартних ігор?"
-    ];
-
-    // Генерація питань у HTML
-    const form = document.getElementById('ludomaniaForm');
-    questions.forEach((question, index) => {
-      const questionDiv = document.createElement('div');
-      questionDiv.classList.add('question-container');
-      questionDiv.innerHTML = `
-        <label class="block text-gray-900 font-semibold mb-2">${index + 1}. ${question}</label>
-        <select class="custom-select shadow rounded-lg w-full py-2 px-3 text-gray-700" name="question${index + 1}">
-          <option value="">Оберіть відповідь</option>
-          <option value="3">Завжди</option>
-          <option value="2">Часто</option>
-          <option value="1">Рідко</option>
-          <option value="0">Ніколи</option>
-        </select>
-      `;
-      form.appendChild(questionDiv);
-    });
-
-    function submitForm() {
-      const responses = [];
-      let score = 0;
-      const selects = form.querySelectorAll('select');
-
-      selects.forEach((select) => {
-        const value = parseInt(select.value);
-        if (!isNaN(value)) {
-          responses.push(value);
-          score += value;
-        } else {
-          responses.push('Не обрано');
-        }
-      });
-
-      // Аналіз результатів на основі набраних балів
-      let analysis = '';
-      if (score >= 40) {
-        analysis = "Серйозна залежність. Варто звернутися до фахівця.";
-      } else if (score >= 20) {
-        analysis = "Можлива залежність. Рекомендується обмежити участь у азартних іграх.";
-      } else {
-        analysis = "Низький рівень ризику залежності.";
-      }
-
-      document.getElementById('result').innerHTML = `<p>Ваші відповіді: ${JSON.stringify(responses)}</p>
-                                                      <p class="mt-4 text-xl font-bold text-purple-600">${analysis}</p>`;
-      console.log("Відповіді:", responses);
-    }
-  </script>
 </body>
 </html>
