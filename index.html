@@ -5,23 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Тест на Лудоманію</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Додаткові стилі для покращення UX */
+    .question-container {
+      transition: transform 0.2s ease-in-out;
+    }
+    .question-container:hover {
+      transform: scale(1.02);
+    }
+    .custom-select {
+      background-color: #f3f4f6;
+      border: 2px solid #d1d5db;
+    }
+    .custom-select:hover, .custom-select:focus {
+      border-color: #4f46e5;
+      outline: none;
+    }
+    .btn-submit {
+      background-color: #6366f1;
+      transition: background-color 0.2s;
+    }
+    .btn-submit:hover {
+      background-color: #4338ca;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-200 to-purple-300 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-lg px-8 py-10 max-w-2xl w-full">
-    <h1 class="text-3xl font-extrabold mb-6 text-center text-purple-700">Тест на Лудоманію</h1>
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-200 flex items-center justify-center min-h-screen">
+  <div class="bg-white shadow-xl rounded-lg px-10 py-12 max-w-3xl w-full">
+    <h1 class="text-4xl font-extrabold mb-8 text-center text-purple-700">Тест на Лудоманію</h1>
     
     <!-- Test Form -->
-    <form id="ludomaniaForm" class="space-y-6"></form>
+    <form id="ludomaniaForm" class="space-y-8">
+      <!-- Питання генеруються з масиву -->
+    </form>
     
     <!-- Submit Button -->
-    <div class="text-center mt-4">
-      <button type="button" onclick="submitForm()" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-6 rounded">
+    <div class="text-center mt-6">
+      <button type="button" onclick="submitForm()" class="btn-submit text-white font-bold py-3 px-8 rounded-lg shadow-md">
         Підтвердити відповіді
       </button>
     </div>
     
     <!-- Result Display -->
-    <div id="result" class="mt-6 text-center text-gray-800 font-semibold"></div>
+    <div id="result" class="mt-8 text-center text-gray-800 font-semibold"></div>
   </div>
 
   <script>
@@ -53,9 +79,10 @@
     const form = document.getElementById('ludomaniaForm');
     questions.forEach((question, index) => {
       const questionDiv = document.createElement('div');
+      questionDiv.classList.add('question-container');
       questionDiv.innerHTML = `
-        <label class="block text-gray-800 font-semibold mb-2">${index + 1}. ${question}</label>
-        <select class="shadow border rounded w-full py-2 px-3 text-gray-700" name="question${index + 1}">
+        <label class="block text-gray-900 font-semibold mb-2">${index + 1}. ${question}</label>
+        <select class="custom-select shadow rounded-lg w-full py-2 px-3 text-gray-700" name="question${index + 1}">
           <option value="">Оберіть відповідь</option>
           <option value="3">Завжди</option>
           <option value="2">Часто</option>
@@ -92,7 +119,7 @@
       }
 
       document.getElementById('result').innerHTML = `<p>Ваші відповіді: ${JSON.stringify(responses)}</p>
-                                                      <p class="mt-2">${analysis}</p>`;
+                                                      <p class="mt-4 text-xl font-bold text-purple-600">${analysis}</p>`;
       console.log("Відповіді:", responses);
     }
   </script>
